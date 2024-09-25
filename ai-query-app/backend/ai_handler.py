@@ -76,8 +76,8 @@ def ask_openai_with_context(user_query, relevant_text, page_number, pdf_path):
     # The system message explains how the assistant should behave
     system_message = {
         "role": "system",
-        "content": """You are an AI assistant specialized in answering questions based on the NCERT Science textbooks for Class 6, Class 8, Class 9, and Class 10. Your goal is to provide accurate answers to users' queries and refer them to the relevant chapter and page number in the textbook.
-
+        "content": """You are an AI assistant specialized in answering questions based on the NCERT Science textbooks for Class 6, Class 7,Class 8, Class 9, and Class 10. Your goal is to provide accurate answers to users' queries and refer them to the relevant chapter and page number in the textbook.
+    
 The dataset you will refer to contains the following information:
 
 Chapters and their titles.
@@ -97,7 +97,7 @@ Chapter 5: Separation of Substances - Starts on Page 35
 Chapter 6: Changes Around Us - Starts on Page 46
 Chapter 7: Getting to Know Plants - Starts on Page 52
 Chapter 8: Body Movements - Starts on Page 66
-Chapter 9: The Living Organisms – Characteristics and Habitats - Starts on Page 79
+Chapter 9: The Living Organisms - Characteristics and Habitats - Starts on Page 79
 Chapter 10: Motion and Measurement of Distances - Starts on Page 95
 Chapter 11: Light, Shadows, and Reflections - Starts on Page 107
 Chapter 12: Electricity and Circuits - Starts on Page 116
@@ -105,6 +105,26 @@ Chapter 13: Fun with Magnets - Starts on Page 125
 Chapter 14: Water - Starts on Page 136
 Chapter 15: Air Around Us - Starts on Page 147
 Chapter 16: Garbage In, Garbage Out - Starts on Page 155
+
+Chapters and Pages for Class 7 Science:
+Chapter 1: Nutrition in Plants - Starts on Page 1
+Chapter 2: Nutrition in Animals - Starts on Page 11
+Chapter 3: Fibre to Fabric - Starts on Page 21
+Chapter 4: Heat - Starts on Page 35
+Chapter 5: Acids, Bases and Salts - Starts on Page 49
+Chapter 6: Physical and Chemical Changes - Starts on Page 58
+Chapter 7: Weather, Climate and Adaptations of Animals to Climate - Starts on Page 68
+Chapter 8: Winds, Storms and Cyclones - Starts on Page 80
+Chapter 9: Soil - Starts on Page 96
+Chapter 10: Respiration in Organisms - Starts on Page 108
+Chapter 11: Transportation in Animals and Plants - Starts on Page 121
+Chapter 12: Reproduction in Plants - Starts on Page 133
+Chapter 13: Motion and Time - Starts on Page 143
+Chapter 14: Electric Current and its Effects - Starts on Page 160
+Chapter 15: Light - Starts on Page 174
+Chapter 16: Water: A Precious Resource - Starts on Page 193
+Chapter 17: Forest: Our Lifeline - Starts on Page 206
+Chapter 18: Wastewater Story - Starts on Page 220
 
 Chapters and Pages for Class 8 Science:
 Chapter 1: Crop Production and Management - Starts on Page 1
@@ -166,7 +186,8 @@ Only refer to the textbook from where the answer was extracted for the user.
 
 Also, if the user asks a question, provide question or questions related to the query asked by the user from the excercises section of the textbook along with the response.
 
-provide question or questions related to the query asked by the user from the excercises section of the textbook along with the response."""
+provide question or questions related to the query asked by the user from the excercises section of the textbook along with the response. If at any point you are generating a formula, output it in latex.
+"""
     }
 
     # Include the system message at the beginning of the conversation
@@ -201,7 +222,7 @@ def handle_query(user_query):
         return "Sorry, I couldn't find relevant information in the textbooks."
 
 # Load cached extracted texts and embeddings
-def load_cache(text_cache_file="pickle_files/extracted_texts.pkl", embeddings_cache_file="pickle_files/embeddings.pkl"):
+def load_cache(text_cache_file="pickle_files/extracted_texts_6_to_10.pkl", embeddings_cache_file="pickle_files/embeddings_6_to_10.pkl"):
     with open(text_cache_file, "rb") as f:
         extracted_texts = pickle.load(f)
 
@@ -211,7 +232,7 @@ def load_cache(text_cache_file="pickle_files/extracted_texts.pkl", embeddings_ca
     return extracted_texts, embedded_texts
 
 # Save function to cache the extracted texts and embeddings using Pickle
-def save_cache(extracted_texts, embedded_texts, text_cache_file="extracted_texts.pkl", embeddings_cache_file="embeddings.pkl"):
+def save_cache(extracted_texts, embedded_texts, text_cache_file="extracted_texts_6_to_10.pkl", embeddings_cache_file="embeddings_6_to_10.pkl"):
     # Save the extracted texts
     with open(text_cache_file, "wb") as f:
         pickle.dump(extracted_texts, f)

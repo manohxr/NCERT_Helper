@@ -7,7 +7,7 @@ function SignupPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false); 
 
   const navigate = useNavigate(); // Initialize the navigate hook
 
